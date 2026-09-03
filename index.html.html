@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nueva pagina BreakScan</title>
+<link rel="icon" type="image/png" href="https://i.imgur.com/hixGuqF.png">
+
+<style>
+/* =========================================================
+   CONFIGURACIÓN RÁPIDA
+   ========================================================= */
+:root {
+    --fondo: url(https://i.imgur.com/dgvZAkM.png);
+    --oscurecer: rgba(0, 0, 0, 0.38);
+
+    --borde: rgba(255,255,255,0.95);
+    --boton: rgba(0,0,0,0.32);
+
+    /* Logo más pequeño */
+    --logo-ancho: 170px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100%;
+}
+
+/* Animación centrada, lenta y con rango de movimiento corto para que parezca fondo de pantalla */
+@keyframes moverFondo {
+    0% {
+        background-position: 50% center;
+    }
+    50% {
+        background-position: 58% center;
+    }
+    100% {
+        background-position: 50% center;
+    }
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+
+    background-image:
+        linear-gradient(var(--oscurecer), var(--oscurecer)),
+        var(--fondo);
+
+    /* Volvemos a 'cover' para que se adapte perfectamente a la ventana sin zoom forzado de PC */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    /* Inicia y oscila suavemente desde el centro */
+    animation: moverFondo 120s ease-in-out infinite;
+
+    display: flex;
+    justify-content: center;
+}
+
+.pagina {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    /* Reducido el espacio superior para acercar el logo a la línea roja superior */
+    padding-top: 25px;
+    padding-bottom: 50px;
+}
+
+.logo {
+    width: var(--logo-ancho);
+    max-width: 30vw;
+    height: auto;
+    display: block;
+
+    filter: drop-shadow(0 5px 8px rgba(0,0,0,.65));
+
+    /* Reducido el espacio inferior para acercar el logo al título (línea roja inferior) */
+    margin-bottom: 55px;
+	margin-top: 45px;
+}
+
+.titulo {
+    font-size: clamp(30px, 3vw, 50px);
+    line-height: 1.1;
+    font-weight: 700;
+    text-align: center;
+
+    text-shadow:
+        0 3px 7px rgba(0,0,0,.95),
+        0 0 14px rgba(0,0,0,.45);
+
+    margin-bottom: 45px;
+}
+
+.enlaces {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 35px;
+
+    width: min(1280px, 92vw);
+}
+
+.boton {
+    position: relative;
+
+    width: 360px;
+    height: 110px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+
+    border: 3px solid var(--borde);
+    border-radius: 12px;
+
+    background: var(--boton);
+
+    color: #fff;
+    text-decoration: none;
+
+    font-size: clamp(20px, 1.4vw, 28px);
+    font-weight: 400;
+
+    text-shadow: 0 2px 6px rgba(0,0,0,.9);
+
+    overflow: hidden;
+
+    backdrop-filter: blur(1px);
+
+    transition:
+        transform .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+}
+
+.boton:hover {
+    transform: translateY(-4px);
+    background: rgba(0,0,0,.48);
+    box-shadow: 0 9px 25px rgba(0,0,0,.45);
+}
+
+.boton::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.22),
+            rgba(0,0,0,.04),
+            rgba(0,0,0,.22)
+        );
+    pointer-events: none;
+}
+
+.icono {
+    position: relative;
+    z-index: 1;
+
+    width: 50px;
+    height: 50px;
+
+    flex: 0 0 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icono svg {
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: white;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,.8));
+}
+
+.icono.discord svg,
+.icono.telegram svg {
+    fill: white;
+    stroke: none;
+}
+
+.texto {
+    position: relative;
+    z-index: 1;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   TABLET / CELULAR
+   ========================================================= */
+
+@media (max-width: 1000px) {
+    .pagina {
+        padding-top: 25px;
+    }
+
+    .logo {
+        margin-bottom: 30px;
+    }
+
+    .titulo {
+        margin-bottom: 35px;
+    }
+
+    .enlaces {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .boton {
+        width: min(500px, 90vw);
+    }
+}
+
+@media (max-width: 550px) {
+    body {
+        background-attachment: scroll;
+        background-size: cover;
+    }
+
+    .pagina {
+        padding-top: 20px;
+        padding-bottom: 30px;
+    }
+
+    .logo {
+        width: 140px;
+        max-width: 45vw;
+        margin-bottom: 25px;
+    }
+
+    .titulo {
+        font-size: 28px;
+        padding: 0 15px;
+        margin-bottom: 25px;
+    }
+
+    .boton {
+        width: 92vw;
+        height: 90px;
+        font-size: 21px;
+        border-width: 2px;
+    }
+
+    .icono {
+        width: 42px;
+        height: 42px;
+        flex-basis: 42px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<main class="pagina">
+
+    <img
+        class="logo"
+        src="https://i.imgur.com/N8fgnwi.png"
+        alt="BreakScan"
+    >
+
+    <h1 class="titulo">¡Visita nuestra Página Web!</h1>
+
+    <section class="enlaces">
+
+        <a
+            class="boton"
+            href="https://breakscan.online/"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <span class="icono">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 10.8 12 3l9 7.8"></path>
+                    <path d="M5.5 9.5V21h13V9.5"></path>
+                    <path d="M9.5 21v-6h5v6"></path>
+                </svg>
+            </span>
+            <span class="texto">Nueva Página</span>
+        </a>
+
+
+        <a
+            class="boton"
+            href="https://discord.gg/NRdjpBFy9E"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <span class="icono discord">
+                <svg viewBox="0 0 24 24">
+                    <path d="M20.3 4.4A19.4 19.4 0 0 0 15.9 3l-.6 1.2a17.2 17.2 0 0 0-6.6 0L8.1 3a19.4 19.4 0 0 0-4.4 1.4C1.3 8.3.8 12.2 1.1 16.1a19.7 19.7 0 0 0 5.4 2.8c.7-.9 1.3-1.8 1.8-2.8-.9-.3-1.7-.7-2.5-1.2.2-.2.4-.3.6-.5 4.8 2.2 9 2.2 13.7 0 .2.2.4.3.6.5-.8.5-1.6.9-2.5 1.2.5 1 1.1 1.9 1.8 2.8a19.7 19.7 0 0 0 5.4-2.8c.4-4.7-.8-8.6-3.5-11.7ZM8.2 14.2c-1.1 0-2-1-2-2.3s.9-2.3 2-2.3 2 1 2 2.3-.9 2.3-2 2.3Zm7.6 0c-1.1 0-2-1-2-2.3s.9-2.3 2-2.3 2 1 2 2.3-.9 2.3-2 2.3Z"/>
+                </svg>
+            </span>
+            <span class="texto">Nuestro Discord</span>
+        </a>
+
+
+        <a
+            class="boton"
+            href="https://t.me/+voe0LK-TSzA1NjUx"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <span class="icono telegram">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.35-.49.97-.75 3.8-1.65 6.33-2.74 7.59-3.27 3.61-1.51 4.36-1.77 4.85-1.78.11 0 .37.03.54.17.14.12.18.28.2.4-.02.07-.02.14-.04.23z"/>
+                </svg>
+            </span>
+            <span class="texto">Nuestro Telegram</span>
+        </a>
+
+    </section>
+
+</main>
+
+</body>
+</html>
